@@ -2,6 +2,8 @@ package br.senai.sp.jandira.ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -9,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import br.senai.sp.jandira.model.FormulaImc;
 
 public class Tela {
 	
@@ -18,6 +22,7 @@ public class Tela {
 		telaImc.setSize(600, 800);
 		telaImc.setTitle("Calculadora IMC");
 		telaImc.setLayout(null);
+		
 		
 		// Label
 		JLabel lblCalculoImc = new JLabel();
@@ -32,9 +37,12 @@ public class Tela {
 		lblSeuPeso.setText("Seu peso:");
 		lblSeuPeso.setBounds(20, 60, 70, 30);
 		
+		
+		
 		// text field seu peso
 		JTextField txtPeso = new JTextField();
 		txtPeso.setBounds(95, 60, 110, 30);
+		
 		
 		// Label sua altura
 		JLabel lblSuaAltura = new JLabel();
@@ -44,7 +52,8 @@ public class Tela {
 		// text field sua altura
 		JTextField txtAltura = new JTextField();
 		txtAltura.setBounds(95, 100, 110, 30);
-				
+		
+		
 		// Criar um botão
 		JButton btnCalcular = new JButton();
 		btnCalcular.setText("CALCULAR");
@@ -69,6 +78,14 @@ public class Tela {
 		JLabel lblEstadoImc = new JLabel();
 		lblEstadoImc.setText("Estado IMC: ");
 		lblEstadoImc.setBounds(20, 280, 110, 30);
+		
+		JLabel lblExibirImc = new JLabel();
+		lblExibirImc.setBounds(150, 280, 300, 30);
+		lblExibirImc.setForeground(Color.GREEN);
+				
+		JLabel lblCalculadoraImc = new JLabel();
+		lblCalculadoraImc.setBounds(150, 240, 300, 30);
+		lblCalculadoraImc.setForeground(Color.GREEN);
 				
 		// Colocando no Jframe
 		telaImc.getContentPane().add(lblCalculoImc);
@@ -80,44 +97,41 @@ public class Tela {
 		telaImc.getContentPane().add(lblResultados);
 		telaImc.getContentPane().add(lblValorImc);
 		telaImc.getContentPane().add(lblEstadoImc);
+		telaImc.getContentPane().add(lblCalculadoraImc);
+		telaImc.getContentPane().add(lblExibirImc);
+		
+		
+		
 	
 		
 		// Clique do mouse no botão
-		btnCalcular.addMouseListener(new MouseListener() {
+		btnCalcular.addActionListener(new ActionListener() {
 			
 			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
+			public void actionPerformed(ActionEvent e) {
 				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
+				FormulaImc formula = new FormulaImc();
 				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
+				formula.setPeso(txtPeso.getText());
+				formula.setAltura(txtAltura.getText());
 				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
 				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("clique");
+				lblCalculadoraImc.setText(formula.calcularImcString());
+				lblExibirImc.setText(formula.exibirStatus());
+				
+				
+				
+				
+				
+				
 				
 			}
 		});
 		
+		
 		// Tela visivel
 		telaImc.setVisible(true);
+		
 		
 		
 	}
